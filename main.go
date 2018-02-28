@@ -12,6 +12,18 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var (
+	id       string
+	name     string
+	surname  string
+	person   *Person
+	country  string
+	city     string
+	postcode string
+	adres    string
+	domicile *Domicile
+)
+
 // Person struct
 type Person struct {
 	ID       string    `json:"id"`
@@ -114,6 +126,18 @@ func main() {
 
 	fmt.Println(string(file))
 
+	err = json.Unmarshal(file, &person)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	id = person.ID
+	name = person.Name
+	surname = person.Surname
+	domicile = person.Domicile
+	// make domcile var
+	persons = append(persons, Person{ID: id, Name: name, Surname: surname})
 	// Route Hanlders / Endpoints
 	r.HandleFunc("/api/person", getPersons).Methods("GET")
 	r.HandleFunc("/api/person/{id}", getPerson).Methods("GET")
