@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"net/http"
@@ -100,9 +101,19 @@ func main() {
 	r := mux.NewRouter()
 
 	// Moc data - @todo implement DB
-	persons = append(persons, Person{ID: "1", Name: "Lonzo", Surname: "Ullrich", Domicile: &Domicile{Country: "Italy", City: "Bogisichfurt", Postcode: 14100, Adress: "26730 Robel Overpass"}})
-	persons = append(persons, Person{ID: "2", Name: "Modesto", Surname: "Gibson", Domicile: &Domicile{Country: "Kiribati", City: "Titoburgh", Postcode: 83198, Adress: "06745 Christopher Ramp"}})
-	persons = append(persons, Person{ID: "3", Name: "Elenora", Surname: "Aufderhar", Domicile: &Domicile{Country: "Malawi", City: "North Micaelaton", Postcode: 57152, Adress: "530 Antonia Canyon"}})
+	// persons = append(persons, Person{ID: "1", Name: "Lonzo", Surname: "Ullrich", Domicile: &Domicile{Country: "Italy", City: "Bogisichfurt", Postcode: 14100, Adress: "26730 Robel Overpass"}})
+	// persons = append(persons, Person{ID: "2", Name: "Modesto", Surname: "Gibson", Domicile: &Domicile{Country: "Kiribati", City: "Titoburgh", Postcode: 83198, Adress: "06745 Christopher Ramp"}})
+	// persons = append(persons, Person{ID: "3", Name: "Elenora", Surname: "Aufderhar", Domicile: &Domicile{Country: "Malawi", City: "North Micaelaton", Postcode: 57152, Adress: "530 Antonia Canyon"}})
+	fmt.Println("Data: ")
+
+	file, err := ioutil.ReadFile("data.json")
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	fmt.Println(string(file))
+
 	// Route Hanlders / Endpoints
 	r.HandleFunc("/api/person", getPersons).Methods("GET")
 	r.HandleFunc("/api/person/{id}", getPerson).Methods("GET")
