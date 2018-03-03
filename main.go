@@ -141,7 +141,7 @@ func main() {
 	postcode = domicile.Postcode
 	adress = domicile.Adress
 
-	// make domcile var
+	// init
 	persons = append(persons, Person{ID: id, Name: name, Surname: surname, Domicile: &Domicile{Country: country, City: city, Postcode: postcode, Adress: adress}})
 	// Route Hanlders / Endpoints
 	r.HandleFunc("/api/person", getPersons).Methods("GET")
