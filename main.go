@@ -19,8 +19,8 @@ var (
 	person   *Person
 	country  string
 	city     string
-	postcode string
-	adres    string
+	postcode int
+	adress   string
 	domicile *Domicile
 )
 
@@ -136,8 +136,13 @@ func main() {
 	name = person.Name
 	surname = person.Surname
 	domicile = person.Domicile
+	country = domicile.Country
+	city = domicile.City
+	postcode = domicile.Postcode
+	adress = domicile.Adress
+
 	// make domcile var
-	persons = append(persons, Person{ID: id, Name: name, Surname: surname})
+	persons = append(persons, Person{ID: id, Name: name, Surname: surname, Domicile: &Domicile{Country: country, City: city, Postcode: postcode, Adress: adress}})
 	// Route Hanlders / Endpoints
 	r.HandleFunc("/api/person", getPersons).Methods("GET")
 	r.HandleFunc("/api/person/{id}", getPerson).Methods("GET")
